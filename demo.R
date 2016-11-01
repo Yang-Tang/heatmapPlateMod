@@ -1,6 +1,7 @@
 # A demo shiny app of heatmapPlateMod
+# run with shiny::runApp('demo.R')
 
-source('modules/hmplateMod.R')
+source('heatmapPlateMod.R')
 library(shiny)
 
 server <- function(input, output) {
