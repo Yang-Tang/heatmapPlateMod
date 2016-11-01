@@ -24,14 +24,14 @@ install.package('highcharter')
   source('heatmapPlateMod.R')
   ```
   
-2. In server function, create a shiny reactive object that contains microplate data in dataframe format: 
+2. In server function, create a shiny reactive object that contains the microplate data to be displayed in dataframe format: 
 
   ```r
   server <- function(input, output) {
 
     # The microplate dataframe should contain at least tow columns:
-    # Well: the well id of microplate (eg, A1, A2, B5, D12) 
-    # Value: the value of that well to be displayed as heatmap
+    #   Well: the well id of microplate (eg, A1, A2, B5, D12) 
+    #   Value: the value of that well to be displayed as heatmap
     # The dataframe may contain other columns and will be ignored.
     
     microplate <- reactive({
@@ -47,10 +47,10 @@ install.package('highcharter')
   }
   ```
 
-3. Invoke module in server function and send the microplate data object to the `data` parameter:
+3. Invoke module in server function and send the microplate data object to the `data` parameter. Set `nrow` and `ncol` to define the type of microplate:
 
   ```r
-  selected <- callModule(hmplate, id = 'YOU_MODULE_ID', data = microplate)
+  selected <- callModule(hmplate, id = 'YOU_MODULE_ID', data = microplate, nrow = 8, ncol = 12)
   ```
 
 4. Add heatmap output ui
