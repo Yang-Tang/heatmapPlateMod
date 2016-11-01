@@ -3,7 +3,7 @@ A shiny module for plotting microplate data as a heatmap
 
 ### Introduction
 
-This is a highcharter package based shiny module that can plot microplate data as heatmap and return infomation from user selected wells.
+This is a highcharter package based shiny module that can plot microplate data as heatmap and return infomation of user selected wells.
 
 
 ### Pre-request
