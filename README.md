@@ -29,6 +29,11 @@ install.package('highcharter')
   ```r
   server <- function(input, output) {
 
+    # The microplate dataframe should contain at least tow columns:
+    # Well: the well id of microplate (eg, A1, A2, B5, D12) 
+    # Value: the value of that well to be displayed as heatmap
+    # The dataframe may contain other columns and will be ignored.
+    
     microplate <- reactive({
       expand.grid(Row = LETTERS[1:8], Col = as.character(1:12),
                   stringsAsFactors = F) %>%
@@ -58,6 +63,6 @@ install.package('highcharter')
   )
   ```
 
-4. Run app. Select wells by Ctrl/Shift + Click. The module returns a dataframe
+5. Run app. Select wells by Ctrl/Shift + Click. The module returns a subsetted dataframe according to the selection.
 
 ![alt text](demo.gif)
