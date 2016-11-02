@@ -38,7 +38,7 @@ hmplate_formatData <- function(df, nrow, ncol) {
 
 }
 
-hmplate_buildHeatmap <- function(data, id) {
+hmplate_buildHeatmap <- function(data) {
 
   tooltip_format <-"function(){return '<span style=\"color: ' +
     this.color + '\">\u25CF</span> ' +
@@ -59,9 +59,9 @@ hmplate_buildHeatmap <- function(data, id) {
                   ),
                   tooltip = list(headerFormat = '', pointFormatter = JS(tooltip_format)),
                   events = list(
-                    click = JS(sprintf("
+                    click = JS("
                     function(event){
-                      var chart=$('#%s').highcharts();
+                      var chart = this.chart;
                       if (event.ctrlKey) {
                         event.point.select(null,true);
                       } else if (event.shiftKey){
@@ -82,9 +82,10 @@ hmplate_buildHeatmap <- function(data, id) {
                       }
                       var selectedPoints = chart.getSelectedPoints();
                       var selectedWells = selectedPoints.map(function(a) {return a.Well;});
-                      Shiny.onInputChange('%s' + '_selected', selectedWells);
+                      var id = chart.container.parentNode.id;
+                      Shiny.onInputChange(id + '_selected', selectedWells);
                     }
-                  ", id, id))
+                  ")
                   )) %>%
     hc_colorAxis(minColor = '#ece7f2', maxColor = '#045a8d')
 
@@ -111,7 +112,7 @@ hmplate <- function(input, output, session,
 
     data() %>%
       hmplate_formatData(nrow, ncol) %>%
-      hmplate_buildHeatmap(session$ns('hmplate'))
+      hmplate_buildHeatmap()
   })
 
   observeEvent(data(), {
